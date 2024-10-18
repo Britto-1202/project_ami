@@ -1,0 +1,165 @@
+function y = fcn(s, u,r)
+
+% Copyright 2008-2019 The MathWorks, Inc.
+
+% s == true  --> voltage and current
+% u: input numerica data
+
+y           = uint8(zeros([1 16]));
+
+%% first digit
+v           = fix(u);
+a           = abs(v);
+t           = r;
+l           = t*100;
+
+if a>=0 && a<10
+    y(3)    = uint8(48);
+    b       = a;
+    
+elseif a>=10 && a<20
+    y(3)    = uint8(49);
+    b       = a-10;
+    
+elseif a>=20 && a<30
+    y(3)    = uint8(50);
+    b       = a-20;
+    
+elseif a>=30 && a<40
+    y(3)    = uint8(51);
+    b       = a-30;
+    
+elseif a>=40 && a<50
+    y(3)    = uint8(52);
+    b       = a-40;
+    
+elseif a>=50 && a<60
+    y(3)    = uint8(53);
+    b       = a-50;
+    
+elseif a>=60 && a<70
+    y(3)    = uint8(54);
+    b       = a-60;
+    
+elseif a>=70 && a<80
+    y(3)    = uint8(55);
+    b       = a-70;
+    
+elseif a>=80 && a<90
+    y(3)    = uint8(56);
+    b       = a-80;
+    
+elseif a>=90 && a<100
+    y(3)    = uint8(57);
+    b       = a-90;
+    
+else
+    y(3)    = uint8(57);
+    b       = 9;
+end
+
+if l>=0 && l<10
+    y(12)    = uint8(48);
+    c       = l;
+    
+elseif l>=10 && l<20
+    y(12)    = uint8(49);
+    c       = l-10;
+    
+elseif l>=20 && l<30
+    y(12)    = uint8(50);
+    c       = l-20;
+    
+elseif l>=30 && l<40
+    y(12)    = uint8(51);
+    c       = l-30;
+    
+elseif l>=40 && l<50
+    y(12)    = uint8(52);
+    c       = l-40;
+    
+elseif l>=50 && l<60
+    y(12)    = uint8(53);
+    c       = l-50;
+    
+elseif l>=60 && l<70
+    y(12)    = uint8(54);
+    c       = l-60;
+    
+elseif l>=70 && l<80
+    y(12)    = uint8(55);
+    c       = l-70;
+    
+elseif l>=80 && l<90
+    y(12)    = uint8(56);
+    c       = l-80;
+    
+elseif l>=90 && l<100
+    y(12)    = uint8(57);
+    c       = l-90;
+    
+else
+    y(12)    = uint8(57);
+    c       = 9;
+end
+
+
+%% second digit
+y(4)        = determineNumber(b);
+y(13)        = determineNumber(c);
+
+%% fractional part
+f           = fix((u-v)*10);
+
+y(5)       = uint8(46);
+y(6)       = determineNumber(f);
+
+y(11)       = uint8(46);
+y(10)=uint8(48);
+y(7)=uint8(32);
+
+
+%% voltage and current
+
+if s
+    y(1:2)      = uint8([86 58]);
+    y(8:9)  = uint8([73 58]);
+else
+    y(1:6)      = uint8([104   117   109   105    58    32]);
+    y([12 13])  = uint8([32 37]);
+end
+
+end
+
+
+
+%% local helper function
+
+function d = determineNumber(n)
+
+    switch n
+        case 0
+            d = uint8(48);
+        case 1
+            d = uint8(49);
+        case 2
+            d = uint8(50);
+        case 3
+            d = uint8(51);
+        case 4
+            d = uint8(52);
+        case 5
+            d = uint8(53);
+        case 6
+            d = uint8(54);
+        case 7
+            d = uint8(55);
+        case 8
+            d = uint8(56);
+        case 9
+            d = uint8(57);    
+        otherwise
+            d = uint8(57);
+    end
+
+end

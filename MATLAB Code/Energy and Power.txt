@@ -1,0 +1,198 @@
+function y = fcn(s, p,o)
+
+% s == true  --> energy and power
+% u: input numerica data
+
+y           = uint8(zeros([1 16]));
+
+%% first digit
+v           = fix(p);
+a           = abs(v);
+g=fix(o);
+k=abs(g);
+
+
+if a>=0 && a<100
+    y(3)    = uint8(48);
+    b       = a;
+    
+elseif a>=100 && a<200
+    y(3)    = uint8(49);
+    b       = a-100;
+    
+elseif a>=200 && a<300
+    y(3)    = uint8(50);
+    b       = a-200;
+    
+elseif a>=300 && a<400
+    y(3)    = uint8(51);
+    b       = a-300;
+    
+elseif a>=400 && a<500
+    y(3)    = uint8(52);
+    b       = a-400;
+    
+elseif a>=500 && a<600
+    y(3)    = uint8(53);
+    b       = a-500;
+    
+elseif a>=600 && a<700
+    y(3)    = uint8(54);
+    b       = a-600;
+    
+elseif a>=700 && a<800
+    y(3)    = uint8(55);
+    b       = a-700;
+    
+elseif a>=800 && a<900
+    y(3)    = uint8(56);
+    b       = a-800;
+    
+elseif a>=900 && a<1000
+    y(3)    = uint8(57);
+    b       = a-900;
+    
+else
+    y(3)    = uint8(57);
+    b       = 9;
+end
+
+
+if b>=0 && b<10
+    y(4)    = uint8(48);
+    c       = b;
+    
+elseif b>=10 && b<20
+    y(4)    = uint8(49);
+    c       = b-10;
+    
+elseif b>=20 && b<30
+    y(4)    = uint8(50);
+    c       = b-20;
+    
+elseif b>=30 && b<40
+    y(4)    = uint8(51);
+    c       = b-30;
+    
+elseif b>=40 && b<50
+    y(4)    = uint8(52);
+    c       = b-40;
+    
+elseif b>=50 && b<60
+    y(4)    = uint8(53);
+    c       = b-50;
+    
+elseif b>=60 && b<70
+    y(4)    = uint8(54);
+    c       = a-60;
+    
+elseif b>=70 && b<80
+    y(4)    = uint8(55);
+    c       = b-70;
+    
+elseif b>=80 && b<90
+    y(4)    = uint8(56);
+    c       = b-80;
+    
+elseif b>=90 && b<100
+    y(4)    = uint8(57);
+    c       = a-90;
+    
+else
+    y(4)    = uint8(57);
+    c       = 9;
+end
+if k>=0 && k<10
+    y(10)    = uint8(48);
+    m       = k;
+    
+elseif k>=10 && k<20
+    y(10)    = uint8(49);
+    m       = k-10;
+    
+elseif k>=20 && k<30
+    y(10)    = uint8(50);
+    m       = k-20;
+    
+elseif k>=30 && k<40
+    y(10)    = uint8(51);
+    m       = k-30;
+    
+elseif k>=40 && k<50
+    y(10)    = uint8(52);
+    m       = k-40;
+    
+elseif k>=50 && k<60
+    y(10)    = uint8(53);
+    m       = k-50;
+    
+elseif k>=60 && k<70
+    y(10)    = uint8(54);
+    m       = k-60;
+    
+elseif k>=70 && k<80
+    y(10)    = uint8(55);
+    m       = k-70;
+    
+elseif k>=80 && k<90
+    y(10)    = uint8(56);
+    m       = k-80;
+    
+elseif k>=90 && k<100
+    y(10)    = uint8(57);
+    m       = k-90;
+    
+else
+    y(10)    = uint8(57);
+    m       = 9;
+end
+
+%% third digit
+y(5)        = determineNumber(c);
+y(11)=determineNumber(m);
+
+%% energy and power
+
+if s
+    y(1:2)      = uint8([69 58]);
+    y(6:7) = uint8([32]);
+    y(8:9) = uint8([80 58]);
+else
+    y(1:6)      = uint8([104   117   109   105    58    32]);
+    y([12 13])  = uint8([32 37]);
+end
+
+end
+
+
+
+%% local helper function
+
+function d = determineNumber(n)
+
+    switch n
+        case 0
+            d = uint8(48);
+        case 1
+            d = uint8(49);
+        case 2
+            d = uint8(50);
+        case 3
+            d = uint8(51);
+        case 4
+            d = uint8(52);
+        case 5
+            d = uint8(53);
+        case 6
+            d = uint8(54);
+        case 7
+            d = uint8(55);
+        case 8
+            d = uint8(56);
+        case 9
+            d = uint8(57);    
+        otherwise
+            d = uint8(57);
+    end
+
+end
