@@ -1,7 +1,5 @@
 function y = fcn(s, u,r)
 
-% Copyright 2008-2019 The MathWorks, Inc.
-
 % s == true  --> voltage and current
 % u: input numerica data
 
